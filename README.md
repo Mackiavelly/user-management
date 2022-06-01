@@ -201,6 +201,7 @@ Here are list of the useful helpers. For detailed explanation look in the corres
 ```php
 
 User::hasRole($roles, $superAdminAllowed = true)
+User::hasAllRole($roles, $superAdminAllowed = true) /** include child roles */
 User::hasPermission($permission, $superAdminAllowed = true)
 User::canRoute($route, $superAdminAllowed = true)
 

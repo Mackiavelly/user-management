@@ -23,6 +23,15 @@ class Role extends AbstractItem
 		return $dbManager->getRolesByUser($userId);
 	}
 
+	public static function getUserAllRoles($userId) {
+		$dbManager = Yii::$app->authManager instanceof DbManager ? Yii::$app->authManager : new DbManager();
+		$mainRoles = $dbManager->getRolesByUser($userId);
+		foreach ($mainRoles as $mainRole) {
+			$mainRoles = array_merge($mainRoles, $dbManager->getChildRoles($mainRole->name));
+		}
+		return $mainRoles;
+	}
+
 	/**
 	 * Get permissions assigned to this role or its children
 	 *

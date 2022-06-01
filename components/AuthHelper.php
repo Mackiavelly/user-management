@@ -16,6 +16,7 @@ class AuthHelper
 {
 	const SESSION_PREFIX_LAST_UPDATE         = '__auth_last_update';
 	const SESSION_PREFIX_ROLES               = '__userRoles';
+	const SESSION_PREFIX_ALL_ROLES           = '__userAllRoles';
 	const SESSION_PREFIX_PERMISSIONS         = '__userPermissions';
 	const SESSION_PREFIX_ROUTES              = '__userRoutes';
 
@@ -69,6 +70,7 @@ class AuthHelper
 
 		// Save roles, permissions and routes in session
 		$session->set(self::SESSION_PREFIX_ROLES, array_keys(Role::getUserRoles($identity->id)));
+		$session->set(self::SESSION_PREFIX_ALL_ROLES, array_keys(Role::getUserAllRoles($identity->id)));
 		$session->set(self::SESSION_PREFIX_PERMISSIONS, array_keys(Permission::getUserPermissions($identity->id)));
 		$session->set(self::SESSION_PREFIX_ROUTES, Route::getUserRoutes($identity->id));
 	}

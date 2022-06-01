@@ -146,6 +146,15 @@ class User extends UserIdentity
 		return array_intersect($roles, Yii::$app->session->get(AuthHelper::SESSION_PREFIX_ROLES,[])) !== [];
 	}
 
+	public static function hasAllRole($roles, $superAdminAllowed = true): bool {
+		if ($superAdminAllowed and Yii::$app->user->isSuperadmin) {
+			return true;
+		}
+		$roles = (array) $roles;
+		AuthHelper::ensurePermissionsUpToDate();
+		return array_intersect($roles, Yii::$app->session->get(AuthHelper::SESSION_PREFIX_ALL_ROLES, [])) !== [];
+	}
+
 	/**
 	 * @param string $permission
 	 * @param bool   $superAdminAllowed
